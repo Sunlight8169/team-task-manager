@@ -1,16 +1,16 @@
-import axios from 'axios';
+import axios from "axios";
 
-const API = axios.create({
-  baseURL: 'http://127.0.0.1:5000',
+const api = axios.create({
+  baseURL: "https://team-task-manager-production-446f.up.railway.app"
 });
 
-// Har request mein token automatically attach ho
-API.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
+// JWT token interceptor
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });
 
-export default API;
+export default api;
