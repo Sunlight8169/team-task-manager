@@ -12,8 +12,7 @@ import os
 SECRET_KEY = "taskflow_super_secret_key_2026_secure"
 
 app = Flask(__name__)
-CORS(app, origins=["https://team-task-manager-dusky-three.vercel.app"])
-                            
+CORS(app)                            
 
 # Checking for Backend running!
 
