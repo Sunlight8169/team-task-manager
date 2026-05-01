@@ -182,13 +182,13 @@ def add_member_by_email(current_user_id):
     if not project:
         return jsonify({"message": "Only admin can add members"}), 403
 
-    # Email se user dhundho
+    # Search through Email 
     cursor.execute("SELECT * FROM users WHERE email=%s", (email,))
     user = cursor.fetchone()
     if not user:
         return jsonify({"message": "No user found with this email"}), 404
 
-    # Already member hai?
+    # Already member ?
     cursor.execute(
         "SELECT * FROM project_members WHERE project_id=%s AND user_id=%s",
         (project_id, user['id'])
@@ -197,7 +197,7 @@ def add_member_by_email(current_user_id):
     if already:
         return jsonify({"message": "User is already a member"}), 400
 
-    # Member add karo
+    # Add member 
     cursor.execute(
         "INSERT INTO project_members (project_id, user_id) VALUES (%s, %s)",
         (project_id, user['id'])

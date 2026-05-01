@@ -5,7 +5,7 @@ import API from '../api/axios';
 export default function ProjectDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [userId, setUserId] = useState('');
+  const [email, setEmail] = useState('');
   const [addMsg, setAddMsg] = useState('');
   const [addError, setAddError] = useState('');
   const [adding, setAdding] = useState(false);
@@ -16,12 +16,12 @@ export default function ProjectDetail() {
     setAddError('');
     setAdding(true);
     try {
-      const res = await API.post('/add-member', {
+      const res = await API.post('/add-member-by-email', {
         project_id: parseInt(id),
-        user_id: parseInt(userId),
+        email: email,
       });
       setAddMsg(res.data.message);
-      setUserId('');
+      setEmail('');
     } catch (err) {
       setAddError(err.response?.data?.message || 'Failed to add member');
     } finally {
@@ -44,12 +44,11 @@ export default function ProjectDetail() {
         </button>
       </div>
 
-      {/* Add Member by User ID */}
+      {/* Add Member by Email */}
       <div className="detail-card">
         <h2 className="section-title">👥 Add Member</h2>
         <p className="page-subtitle" style={{ marginBottom: '20px' }}>
-          Team member ka <strong>User ID</strong> daalo — 
-          unhe apna ID unke Dashboard pe milega
+          Team member ka <strong>Email</strong> daalo
         </p>
 
         {addMsg   && <div className="auth-success" style={{marginBottom:'16px'}}>{addMsg}</div>}
@@ -57,12 +56,12 @@ export default function ProjectDetail() {
 
         <form onSubmit={handleAddMember} className="inline-form">
           <div className="form-group" style={{ flex: 1 }}>
-            <label>User ID</label>
+            <label>Email</label>
             <input
-              type="number"
-              placeholder="e.g. 3"
-              value={userId}
-              onChange={(e) => setUserId(e.target.value)}
+              type="email"
+              placeholder="member@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
