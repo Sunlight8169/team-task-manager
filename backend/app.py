@@ -4,6 +4,8 @@ from config import get_db_connection
 import jwt
 import datetime
 from functools import wraps
+import os
+
 
 # New - strong key (32+ bytes)
 
@@ -399,5 +401,7 @@ def check_email():
     return jsonify({"exists": True})
 
 
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
