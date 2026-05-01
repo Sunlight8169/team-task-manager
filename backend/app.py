@@ -24,8 +24,11 @@ def home():
 
 @app.route('/test-db')
 def test_db():
-    conn = get_db_connection()
-    return "Database Connected "
+    try:
+        conn = get_db_connection()
+        return "Database Connected!"
+    except Exception as e:
+        return str(e), 500
 
 # Move to signup section 
 
